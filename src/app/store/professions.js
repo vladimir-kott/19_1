@@ -35,6 +35,7 @@ export const loadProfessionsList = () => async (dispatch, getState) => {
     dispatch(professionsRequested())
     try{
         const {content} = await professionService.get();
+        console.log('content', content)
         dispatch(professionsResived(content))
     }
     catch (error){
@@ -43,7 +44,9 @@ export const loadProfessionsList = () => async (dispatch, getState) => {
 }
 
 export const getProfessionsByIds = (profesionsIds) => (state) => {
-    return state.qualities.entities.find((p) => p._id === profesionsIds)
+    //console.log('profesionsIds', profesionsIds)
+    //console.log('state.qualities.entities', state.professions.entities)
+    return state.professions.entities.find((p) => p._id === profesionsIds)
 } 
 
 export const getProfessions = () => (state) => 
