@@ -1,5 +1,6 @@
-import professionService from "../services/profession.service";
 import {createSlice} from "@reduxjs/toolkit"
+import professionService from "../services/profession.service";
+
 
 const professionsSlice = createSlice({
     name:"professions",
@@ -33,13 +34,17 @@ export const loadProfessionsList = () => async (dispatch, getState) => {
     //const {}
     dispatch(professionsRequested())
     try{
-        const {content} = await professionService.get()
-        dispatch(professionsRequested(content))
+        const {content} = await professionService.get();
+        dispatch(professionsResived(content))
     }
     catch (error){
         dispatch(professionsRequestFailed(error.message))
     }
 }
+
+export const getProfessionsByIds = (profesionsIds) => (state) => {
+    return state.qualities.entities.find((p) => p._id === profesionsIds)
+} 
 
 export const getProfessions = () => (state) => 
     state.professions.entities
